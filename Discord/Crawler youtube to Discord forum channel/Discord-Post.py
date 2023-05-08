@@ -11,9 +11,9 @@ print()
 req = requests.Session()
 def create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword):
     # 設定 Discord Webhook URL
-    webhook_url = f"https://discord.com/api/v9/channels/1095535060964360232/threads"
+    webhook_url = f"It's My Discord Forum Channel Webhook URL"
 
-    bot_token = 'MTA5NzQ0MDAwODQ1NTA4MTk4NA.GsIWjk.d_xaiM7F8Hb9fpEyKL2fI-CuUwaoi0xF2fAs8E'
+    bot_token = "It's My Discord bot token"
     now = datetime.datetime.now().strftime(f'%Y-%m-%d %H:%M:%S')
     # 建立 payload
     payload = {
