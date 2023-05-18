@@ -14,32 +14,44 @@ def create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword_all_name,q
     now = datetime.datetime.now().strftime(f'%Y-%m-%d %H:%M:%S')
     message_now = datetime.datetime.now().strftime(f'%Y-%m-%d')
     # 建立 payload
-    payload = {
-        'message':{
-        #內文
-        "content": f'標題：{titles} \n\n影片時間：{Videos} \n\n在{now}擷取時\n\n{watchs} \n\n{Videos_url}'
-        },
-        'auto_archive_duration':4320,
-        'name':f"{quarterly}/{keyword_all_name} ({message_now}) - BotUpdate",#標題
-        'applied_tags':keyword_ID,# 標籤
-        }
+    if len(f"{quarterly}/{keyword_all_name} ({message_now}) - BotUpdate") > 100 :
+        name_test=f"{quarterly}/{keyword_all_name} ({message_now}) - BotUpdate"
+        names = name_test[:100]
+        payload = {
+            'message':{
+            #內文
+            "content": f'---BotUpdate--- \n\n 標題：{titles} \n\n 影片時間：{Videos} \n\n 在 {now} 擷取時 \n\n {watchs} \n\n {Videos_url}'
+            },
+            'auto_archive_duration':4320,
+            'name':names, #標題
+            'applied_tags':[keyword_ID], # 標籤
+            }
+    else:
+        payload = {
+            'message':{
+            #內文
+            "content": f'---BotUpdate---\n\n 標題：{titles} \n\n 影片時間：{Videos} \n\n 在 {now} 擷取時 \n\n {watchs} \n\n {Videos_url}'
+            },
+            'auto_archive_duration':4320,
+            'name':f"{quarterly}/{keyword_all_name} ({message_now}) - BotUpdate",#標題
+            'applied_tags':[keyword_ID],# 標籤
+            }
 
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bot {bot_token}"
     }
-
+    json_payload = json.dumps(payload)
     # 發送 POST 請求
 
     response = req.post(webhook_url,json=payload,headers = headers)
-
     # 檢查是否成功
     if response.status_code == 204 or response.status_code == 201 or response.status_code == 200:
         print("已成功傳送資料至 Discord。")
         now = datetime.datetime.now().strftime(f'%Y-%m-%d %H:%M')
         with open('./Reportdata.txt','a',encoding="utf-8-sig") as data:
             data.write('-'*90)
-            data.write(f'\n{now}有新的文章!')
+            data.write(f'\n{now}有新的文章!\n')
             print(f"目前版本：{quarterly}")
     else:
         print(f"傳送資料至 Discord 失敗。{response.status_code}")
@@ -69,14 +81,18 @@ def condition_Tag(titles,Videos,watchs,Videos_url,keyword_all_name,Channelname,q
         print(f'{Channelname} - 目前沒有新影片')
         print(f"目前版本：{quarterly}")
     else:
-        for i in tag_profession:
-            if keyword in i :
-                keyword = tag_profession[tag_profession.index(i)]
-                keyword_ID = [Tag_ID[keyword],Tag_ID['影片']]
-                create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword_all_name,quarterly,keyword)
-            elif keyword == 'None':
-                keyword_ID = Tag_ID['影片']
-                create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword_all_name,quarterly,keyword) 
+        if keyword == 'None' or keyword == None:
+            keyword_ID = Tag_ID['影片']
+            create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword_all_name,quarterly,keyword) 
+        else:
+            for i in tag_profession:
+                print(keyword in i)
+                if keyword in i :
+                    keyword = tag_profession[tag_profession.index(i)]
+                    keyword_ID = [Tag_ID[keyword],Tag_ID['影片']]
+            create_threads(titles,Videos,watchs,Videos_url,keyword_ID,keyword_all_name,quarterly,keyword)
+            
+                
 
 def Json_information(Channelname,titles,Videos,watchs,Videos_url,keyword,quarterly='遙久學園'):
     new_CheckJson = {
@@ -94,21 +110,32 @@ def Json_information(Channelname,titles,Videos,watchs,Videos_url,keyword,quarter
 def condition_title(Channelname,titles,Videos,watchs,Videos_url,json_data,profession,quarterly):
     if Channelname == '語風薯薯撿到貓 Kazeimo Ch. 【終焉理想庭】':
         keyword = ''
-        for i in titles.split('➧')[1][:8]:
-            text_str = titles.split('➧')[1][:8]
-            keyword_all_name = text_str[:text_str.index('T')+2]
-            if i in profession:
-                keyword = i
-                break
-        if keyword == '':
-            keyword = 'None'
+        if '➧' in titles:
+            for i in titles.split('➧')[1][:-1]:
+                text_str = titles.split('➧')[1][:-1]
+                keyword_all_name = text_str[:text_str.index('T')+2]
+                if i in profession:
+                    keyword = i
+                    break
+            if keyword == '':
+                keyword = 'None'
+            new_CheckJson=Json_information(Channelname,titles,Videos,watchs,Videos_url,keyword,quarterly)
+            json_data.update(new_CheckJson)
+            CheckJson = json.dumps(json_data)
+            with open('./CheckVideo.json','w',encoding="utf-8-sig") as data:
+                data.write(CheckJson)
+            return titles,Videos,watchs,Videos_url,keyword,keyword_all_name,quarterly
+        else:
+            keyword_all_name = titles
+            if keyword == '':
+                keyword = 'None'
+            new_CheckJson=Json_information(Channelname,titles,Videos,watchs,Videos_url,keyword,quarterly)
+            json_data.update(new_CheckJson)
+            CheckJson = json.dumps(json_data)
+            with open('./CheckVideo.json','w',encoding="utf-8-sig") as data:
+                data.write(CheckJson)
+            return titles,Videos,watchs,Videos_url,keyword,keyword_all_name,quarterly
 
-        new_CheckJson=Json_information(Channelname,titles,Videos,watchs,Videos_url,keyword,quarterly)
-        json_data.update(new_CheckJson)
-        CheckJson = json.dumps(json_data)
-        with open('./CheckVideo.json','w',encoding="utf-8-sig") as data:
-            data.write(CheckJson)
-        return titles,Videos,watchs,Videos_url,keyword,keyword_all_name,quarterly
     elif Channelname == '安靜貓':
         keyword = ''
         quarterly =titles.split('｜')[-1].split('/ ')[-1]
@@ -130,7 +157,7 @@ def condition_title(Channelname,titles,Videos,watchs,Videos_url,json_data,profes
             data.write(CheckJson)
         return titles,Videos,watchs,Videos_url,keyword,keyword_all_name,quarterly
     else:
-        return None,None,None,None,None,None
+        return None,None,None,None,None,None,None
 
 def check_title_name(dat,Before_Titles,titles,profession,Channelname,json_data,quarterly):
     if Before_Titles != titles and ('闇影詩章' in titles or 'Shadowverse' in titles or 'shadowverse' in titles or '影之詩' in titles):
@@ -147,7 +174,7 @@ def check_title_name(dat,Before_Titles,titles,profession,Channelname,json_data,q
         now = datetime.datetime.now().strftime(f'%Y-%m-%d %H:%M')
         with open('./Reportdata.txt','a',encoding="utf-8-sig") as data:
             data.write('-'*90)
-            data.write(f'\n{Channelname}\n{now}並無PO新的文章!')
+            data.write(f'\n{Channelname}\n{now}並無PO新的文章!\n')
         return None,None,None,None,None,None,quarterly
         
 def create_youtube(profession,channel_ID,Channelname):
@@ -160,7 +187,10 @@ def create_youtube(profession,channel_ID,Channelname):
             json_data = json.loads(f_list)
             if Channelname in json_data:
                 Before_Titles=json_data[Channelname]['Titles']
-                quarterly = json_data['安靜貓']['quarterly']
+                if '安靜貓' in json_data:
+                    print("4123asdf")
+                    quarterly = json_data['安靜貓']['quarterly']
+
 
     yt_url = 'It's My Youtube date URL'
 
