@@ -138,13 +138,14 @@ def Get_channel_ID(youtube_user_name):
 
     channel_datas = channel_data['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents']
 
-
+    channel_ID = ''
     for data in channel_datas:
         if 'channelRenderer' in data:
             data = data['channelRenderer']
             if data['title']['simpleText'] == youtube_user_name:
                 channel_ID = data['channelId']
                 break
+    
     return channel_ID
 
 
@@ -167,14 +168,15 @@ def frist_page(channel_ID):
     payload = json.dumps(payload)
     datas = req.post(url,data=payload)
     datas = json.loads(datas.text)
-    url_list = []
+    url_list = {}
     datas = datas['contents']['twoColumnBrowseResultsRenderer']['tabs'][1]['tabRenderer']['content']['richGridRenderer']['contents']
     number_sum=0
     for data in datas:
         if 'richItemRenderer' in data:
             url_id = data['richItemRenderer']['content']['videoRenderer']['navigationEndpoint']['commandMetadata']['webCommandMetadata']['url']
+            title = data['richItemRenderer']['content']['videoRenderer']['title']['runs'][0]['text']
             video_url = f'https://www.youtube.com{url_id}'
-            url_list.append(video_url)
+            url_list[title] = video_url
             number_sum+=1
             print(number_sum)
         elif 'continuationItemRenderer' in data:
@@ -206,8 +208,9 @@ def next_page(token,url_list,number_sum):
     for data in datas:
         if 'richItemRenderer' in data:
             url_ID = data['richItemRenderer']['content']['videoRenderer']['navigationEndpoint']['commandMetadata']['webCommandMetadata']['url']
+            title = data['richItemRenderer']['content']['videoRenderer']['title']['runs'][0]['text']
             video_url = f'https://www.youtube.com{url_ID}'
-            url_list.append(video_url)
+            url_list[title] = video_url
             number_sum += 1
             print(number_sum)
     
@@ -241,7 +244,12 @@ def Playlist(channel_ID):
     payload = json.dumps(payload)
     datas = req.post(url,data=payload)
     datas = json.loads(datas.text)
-    datas = datas['contents']['twoColumnBrowseResultsRenderer']['tabs'][3]['tabRenderer']['content']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents'][0]['gridRenderer']['items']
+    datas = datas['contents']['twoColumnBrowseResultsRenderer']['tabs']
+    for i in datas:
+        if i['tabRenderer']['title'] == 'Playlists':
+            datas = i['tabRenderer']['content']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents'][0]['gridRenderer']['items']
+            break
+
 
     playlist_url = []
     for data in datas:
@@ -263,19 +271,23 @@ def Playlist_video(playlist_url,play_url):
     },
     "browseId": f"{playlist_url}",
     }
+    
     payload = json.dumps(payload)
     datas = req.post(url,data=payload)
     datas = json.loads(datas.text)
     datas = datas['contents']['twoColumnBrowseResultsRenderer']['tabs'][0]['tabRenderer']['content']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents'][0]['playlistVideoListRenderer']['contents']
+    playlist_token=''
     for data in datas:
-        if 'playlistVideoRenderer' in data:
+        try:
+        # if 'playlistVideoRenderer' in data:
             url_ID = data['playlistVideoRenderer']['navigationEndpoint']['commandMetadata']['webCommandMetadata']['url']
+            title = data['playlistVideoRenderer']['title']['runs'][0]['text']
             url = f'https://www.youtube.com{url_ID}'
-            play_url.append(url)
-        else:
+            play_url[title] = url
+        except:
             playlist_token = data['continuationItemRenderer']['continuationEndpoint']['continuationCommand']['token']
     
-    playlist_token=''
+    
     return play_url,playlist_token
 
 def Playlist_video_next(play_url,playlist_token):
@@ -299,8 +311,9 @@ def Playlist_video_next(play_url,playlist_token):
     for data in datas:
         if 'playlistVideoRenderer' in data:
             url_id = data['playlistVideoRenderer']['navigationEndpoint']['commandMetadata']['webCommandMetadata']['url']
+            title = data['playlistVideoRenderer']['title']['runs'][0]['text']
             url = f'https://www.youtube.com{url_id}'
-            play_url.append(url)
+            play_url[title] = url
         else:
             playlist_token = data['continuationItemRenderer']['continuationEndpoint']['continuationCommand']['token']
     
@@ -314,39 +327,46 @@ def Playlist_video_next(play_url,playlist_token):
     
 
 
-channelname = '安靜貓'
+channelname = '⚡Apex頂尖裂開者'
 
-channel_ID = Get_channel_ID(channelname)
+channel_IDs = Get_channel_ID(channelname)
 
-token,url_list,number_sum = frist_page(channel_ID)
+token,url_list,number_sum = frist_page(channel_IDs)
 if token!=None:
     condition_bool = True
 
 while condition_bool == True:
     url_list,token,condition_bool,number_sum = next_page(token,url_list,number_sum)
 
+
+allurl_list = url_list
 print("--- 抓取 播放清單 作業 ---")
 
 
-playlist_url = Playlist(channel_ID)
+playlist_url = Playlist(channel_IDs)
 
-play_url=[]
+
+play_url={}
 for i in playlist_url:
-
     play_url,playlist_token = Playlist_video(i,play_url)
     if playlist_token !="":
         bol = True
         while bol==True:
             play_url,playlist_token,bol = Playlist_video_next(play_url,playlist_token)
 
-play_url = set(play_url)
-url_list = [x for x in url_list if x not in play_url]
+key_play_url = set(play_url.keys())
+key_url_list = set(url_list.keys())
+
+result = {key: url_list[key] for key in key_url_list - key_play_url}
 
 
 
 
 with open(f'./Youtube-{channelname}全部影片連結.txt','a',encoding="utf-8-sig") as f:
-    for i in url_list:
-        f.write(i+"\n")
+    for i in allurl_list.keys():
+        f.write(allurl_list[i]+"\n")
+with open(f'./Youtube-{channelname}去掉播放清單影片連結.txt','a',encoding="utf-8-sig") as f:
+    for i in result.keys():
+        f.write(result[i]+"\n")
 
 print(f'完成{channelname}')
