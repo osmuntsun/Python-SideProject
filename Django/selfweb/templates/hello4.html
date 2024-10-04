@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>hello4</title>
+</head>
+<body>
+    <div>
+        <img src="{%static 'images/1.png' %}" alt="派大星">
+        <h1 class="'info">歡迎光臨：{{username}}</h1>
+        <h3>現在時間：{{now}}</h3>
+    </div>
+    <div class="patent-table">
+        <div class="patent-table-div">
+            123
+        </div>
+        <div class="patent-table-div">
+            321
+        </div>
+        <div class="patent-table-div">
+            5456
+        </div>
+    </div>
+</body>
+</html>

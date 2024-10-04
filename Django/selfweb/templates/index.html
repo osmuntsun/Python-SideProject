@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <!-- 控制網頁的縮放 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>osmunt</title>
+        <!-- 頁面的icon -->
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <!-- 大側邊欄位 -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">  <!-- 這是點頭像拉到最上面 -->
+                <span class="d-block d-lg-none">趙辰恩個人網頁</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'images/profile2.jpg' %}" alt="..." /></span> <!-- 頭貼 -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <!-- 側邊欄位 -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">關於</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">經歷</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">技能</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Certifications">證照</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">獎項</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">學歷</a></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+
+                <div class="resume-section-content">
+                    <h1 class="mb-0" style="font-size: 80px;">
+                        趙辰恩
+                        <span class="text-primary">Osmunt</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        <i class="fa-solid fa-phone"></i> <a>0983-508-785</a>
+                        <br>
+                        <i class="fa-solid fa-envelope"></i> <a href="mailto:osmuntsun900606@gmail.com">osmuntsun900606@gmail.com</a>
+                    </div>
+                    <p class="lead mb-5">一位常在專題競賽中獲獎的Leader，對資料分析、機器學習有極大的興趣並且有著努力自我學習的態度，常受到老師及主管們的青睞。</p>
+
+                    <div class="social-icons">
+                        <a class="social-icon" href="https://www.linkedin.com/in/%E8%BE%B0%E6%81%A9-%E8%B6%99-6b4333235/"  target="_blank"><i class="fab fa-linkedin-in"></i></a> <!-- Linkdin link -->
+                        <a class="social-icon" href="https://github.com/osmuntsun/Python-SideProject" target="_blank"><i class="fab fa-github"></i></a> <!-- github link -->
+                        <a class="social-icon" href="https://www.instagram.com/osmuntsun/" target="_blank"><i class="fab fa-instagram"></i></a> <!-- instagram link -->
+                        <a class="social-icon" href="https://www.linkedin.com/feed/update/urn:li:activity:7065129367684743168/?originalSubdomain=cn" target="_blank" alt="關於我的新聞"><i class="fa fa-eye"></i></a> <!-- my news link -->
+                    </div>
+                </div>
+
+            </section>
+            
+            <!-- 格線 -->    
+            <hr class="m-0" />
+
+            <!-- Experience-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">經歷-Experience</h2>
+                    
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">台灣大哥大-行動數據網路部</h3>
+                            <div class="subheading mb-3">實習生</div>
+                            <p>在實習的這一年中，我學會了基本的3G、4G核心網路架構，進而將機台所傳送的大量數據進行資料前處理，並將其中需要的資料進行可視化，製作成每日報告供部門人員查看，而我也透過空閒時間使用Python為公司將重大LOG資料進行處理製作成簡易網頁供同事們查看，省去同事們繁瑣且複雜手續，讓他們能快速查看機台重要的資訊。</p>
+                        </div>
+
+                        <div class="flex-shrink-0"><span class="text-primary">民國 111/07 - 112/07</span></div>
+
+                    </div>
+
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <!-- <div class="d-flex flex-row flex-md-row mb-5"> -->
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">專利</h3>
+                            <div class="patent-table">
+                                <!-- <div class="subheading mb-3">1.智慧零錢包2.智慧關節熱敷器3.智慧便捷烘鞋櫃</div> -->
+                                <div class="items">
+                                    <img class="patent-img" src="{%static 'images/新型_智慧零錢包.png' %}" width="350" height="450" title="專利編號:M607532" alt="新型_智慧零錢包">
+                                </div>
+                                <div class="items">
+                                    <img class="patent-img" src="{%static 'images/新型_智慧關節熱敷器.png' %}" width="350" height="450" title="專利編號:M607533" alt="新型_智慧關節熱敷器">
+                                </div>
+                                <div class="items">
+                                    <img class="patent-img" src="{%static 'images/新型_智慧便捷烘鞋櫃.png' %}" width="350" height="450" title="專利編號:M607534" alt="新型_智慧便捷烘鞋櫃">
+                                </div>
+                                <div class="desktop-items">
+                                    <img class="patent-img" src="{%static 'images/智慧型寵物清洗機.png' %}" width="600" height="350" title="專利編號:M616922" alt="智慧型寵物清洗機">
+                                </div>
+                                <!-- <div class="mobile-items"> -->
+                                
+                                <!-- </div> -->
+                            </div>
+                            <a href="{%static 'images/智慧型寵物清洗機.png' %}"><img class="mobile-items" src="{%static 'images/Icon/patents.png' %}" width="100px" height="100px" title="專利編號:M616922" alt="智慧型寵物清洗機"></a>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">民國 110/02/11</span></div>
+                    </div>
+
+                    <!-- <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">新型_智慧便捷烘鞋櫃_專利</h3>
+                            <div class="subheading mb-3"></div>
+                            <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">July 2010 - December 2011</span></div>
+                    </div> -->
+                </div>
+            </section>
+            <hr class="m-0" />
+            
+            <!-- Skills-->
+            <section class="resume-section" id="skills">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">技能-Skills</h2>
+                    <!-- <div class="subheading mb-3">Programming Languages & Tools</div> -->
+                    <!-- <ul class="list-inline self-icons"> -->
+                        <ul class="self-icons">
+                            <li>深度學習(CNN、RNN)</li>
+                            <li>機器學習</li>
+                            <li>資料前處理(特徵工程)</li>
+                            <li>Ubuntu</li>
+                            <li>網頁設計(Django)</li>
+                            <li>動態網頁爬蟲(IG、Pchome)</li>
+                            <li>靜態網頁爬蟲(PTT)</li>
+                            <li>資料視覺化(Matplotlib)</li>
+                            <li>專題製作、發想</li>
+                            <li>3G、4G Core Network</li>
+                        </ul>
+                        <!-- 使用Font Awesome 一個icon的圖式 -->
+                        <ul class="list-inline dev-icons">
+                            <li class="list-inline-item"><i class="fab fa-python"></i></li>
+                            <li class="list-inline-item"><i class="fa-solid fa-spider"></i></li>
+                            <li class="list-inline-item"><i class="fab fa-ubuntu"></i></li>
+                            <li class="list-inline-item"><i class="fab fa-html5"></i></li>
+                            <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
+                            <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <hr class="m-0" />
+                
+                <!-- Certifications -->
+                <section class="resume-section" id="Certifications">
+                    <div class="resume-section-content">
+                        <h2 class="mb-5">證照-Certifications</h2>
+                        <div class="Certifications-table">
+                            <ul class="Certifications-li self-icons">
+                                <li><a href="{% static 'images/Certification/ITS-python.pdf'%}" target="_blank">ITS-Python</a></li>
+                                <li><a href="{% static 'images/Certification/ITS-java.pdf'%}" target="_blank">ITS-Java</a></li>
+                                <li><a href="{% static 'images/Certification/網頁擷取.jpg'%}" target="_blank">網頁資料擷取與分析</a></li>
+                                <li><a href="{% static 'images/Certification/資訊安全與法律.jpg'%}" target="_blank">資訊安全與法律</a></li>
+                                <li><a href="{% static 'images/Certification/企業電子化助理規劃師.jpg'%}" target="_blank">企業電子化助理規劃師</a></li>
+                                <li><a href="{% static 'images/Certification/電子商務概論.jpg'%}" target="_blank">電子商務概論-專業級</a></li>
+                                <li><a href="{% static 'images/Certification/網頁丙級.png'%}" target="_blank">網頁設計-丙級</a></li>
+                                <li><a href="{% static 'images/Certification/專業行銷人員.jpg'%}" target="_blank">專業行銷人員</a></li>
+                                <li><a href="{% static 'images/Certification/專業E-office人員.jpg'%}" target="_blank">專業e-Office人員</a></li>
+                                <li><a href="{% static 'images/Certification/MOS-PPT2016.pdf'%}" target="_blank">MOS-PowerPoint</a></li>
+                            </ul>
+                            <ul class="Certifications-li self-icons">
+                                <li><a href="{% static 'images/Certification/ITS-Cybersecurity.pdf'%}" target="_blank">ITS-Cybersecurity</a></li>
+                                <li><a href="{% static 'images/Certification/CISCO-Certifications.pdf'%}" target="_blank">CISCO-Cybersecurity</a></li>
+                                <li><a href="{% static 'images/Certification/巨量資料.jpg'%}" target="_blank">巨量資料處理與分析</a></li>
+                                <li><a href="{% static 'images/Certification/ERP.jpg'%}" target="_blank">ERP 系統專業人員</a></li>
+                                <li><a href="{% static 'images/Certification/網路通訊專業人員.jpg'%}" target="_blank">網路通訊專業人員</a></li>
+                                <li><a href="{% static 'images/Certification/乙級.jpg'%}" target="_blank">電腦軟體應用-乙級</a></li>
+                                <li><a href="{% static 'images/Certification/專業人士人員.jpg'%}" target="_blank">專業人事人員</a></li>
+                                <li><a href="{% static 'images/Certification/專業企畫人員.jpg'%}" target="_blank">專業企劃人員</a></li>
+                                <li><a href="{% static 'images/Certification/專業中文秘書人員.jpg'%}" target="_blank">專業中文秘書人員</a></li>
+                                <li><a href="{% static 'images/Certification/MOS-Word2016.pdf'%}" target="_blank">MOS-Word</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <hr class="m-0" />
+                
+                <!-- Awards-->
+                <section class="resume-section" id="awards">
+                    <div class="resume-section-content">
+                        <h2 class="mb-5">獎項-Awards</h2>
+                        <ul class="fa-ul mb-0">
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                2
+                                <sup>nd</sup>
+                                全國大專校院-資訊應用服務創新競賽
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                3
+                                <sup>rd</sup>
+                                全國大專校院-資訊應用服務創新競賽
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                全國大專校院-資訊應用服務創新競賽-佳作
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                AI金融科技創新創意競賽-實作組佳作
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                教育部2021年全國技專校院學生實務專題製作競賽入圍
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                2
+                                <sup>nd</sup>
+                                穀保家商專題製作競賽
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                3
+                                <sup>rd</sup>
+                                景文科技大學全國高中職專題競賽 -資訊管理類
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                1
+                                <sup>st</sup>
+                                2018電商小老闆
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                107年資訊應用競賽團體組-第四名
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                1
+                                <sup>st</sup>
+                                2019全民E化資訊運動會秋季賽簡報類
+                            </li>
+                            <li>
+                                <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                                3
+                                <sup>rd</sup>
+                                校內技藝競賽程式設計
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr class="m-0" />
+                <!-- Education-->
+                <section class="resume-section" id="education">
+                    <div class="resume-section-content">
+                        <h2 class="mb-5">學歷-Education</h2>
+                        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">國立臺北商業大學</h3>
+                                <div class="subheading mb-3">人工智慧與商業應用 碩士</div>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">2023/09 - 2024/07</span></div>
+                        </div>
+                        <!-- <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">台北城市科技大學</h3>
+                                <div class="subheading mb-3">Technology Magnet Program</div>
+                                <p>GPA: 3.56</p>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">August 2002 - May 2006</span></div>
+                        </div> -->
+                    </div>
+                </section>
+            </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js'%}"></script>
+    </body>
+</html>
