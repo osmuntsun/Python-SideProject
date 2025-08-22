@@ -91,7 +91,31 @@ else:
     driver.refresh()
     time.sleep(2)
     driver.get("https://www.facebook.com/groups/joins/?nav_source=tab&ordering=viewer_added")
-    Getcomunity()
+    # Getcomunity()
+    with open('groups.txt', 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.startswith("測試PO文"):
+                # 取得冒號後面的網址
+                parts = line.split(":")
+                if len(parts) > 1:
+                    url = ' https:'+parts[-1].strip()
+
+    time.sleep(1)
+    print(f"前往社團: {url}")
+    driver.get(url)
+    driver.refresh()
+    WebDriverWait(driver, 50000).until(
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span'))
+    )
+    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span').click()
+    WebDriverWait(driver, 50000).until(
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p'))
+    )
+    post = driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p')
+    post.send_keys('自動PO文測試') # 輸入測試PO文
+    time.sleep(1)
+    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[3]/div[1]/div/div').click()
+    
     input("Cookies have been loaded. Press Enter to continue...")
 
     
