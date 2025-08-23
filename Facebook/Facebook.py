@@ -65,8 +65,16 @@ def PostToGroup(group_url, message):
     post.send_keys(message) # 輸入測試PO文
     time.sleep(1)
     # 上傳圖片
+    img_paths = [
+    r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\你們在耍什麼白癡.png',
+    r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\我真的是操.gif',
+    r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\沒關C.jpg',
+    ]
     post_img = driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[1]/div[2]/div[1]/input')
-    post_img.send_keys(r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\你們在耍什麼白癡.png')
+    for img in img_paths:
+        post_img.send_keys(img)
+        time.sleep(0.5)  # 可視情況加等待
+    # post_img.send_keys(r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\你們在耍什麼白癡.png')
     # 發文
     time.sleep(1)
     driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[3]/div[1]/div/div').click()
