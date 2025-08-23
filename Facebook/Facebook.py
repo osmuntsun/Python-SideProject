@@ -7,8 +7,15 @@ from DownloadChromedriver import get_chromedriver
 import time
 import requests
 import json
+import subprocess
+import re
+
+
+
+
 
 options = webdriver.ChromeOptions()
+# options.binary_location = r".\chrome.exe"
 options.add_argument("--start-maximized")  # 全螢幕
 options.add_argument("--disable-notifications")  # 關閉通知
 
@@ -43,6 +50,28 @@ def Getcomunity():
         for url, name in groups.items():
             f.write(f"{name} : {url}\n")
 
+def PostToGroup(group_url, message):
+    time.sleep(2)
+    driver.get(group_url)
+    driver.refresh()
+    WebDriverWait(driver, 50000).until(
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span'))
+    )
+    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span').click()
+    WebDriverWait(driver, 50000).until(
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p'))
+    )
+    post = driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p')
+    post.send_keys(message) # 輸入測試PO文
+    time.sleep(1)
+    # 上傳圖片
+    post_img = driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[1]/div[2]/div[1]/input')
+    post_img.send_keys(r'C:\Users\User\Desktop\Python\Python-SideProject\Facebook\你們在耍什麼白癡.png')
+    # 發文
+    time.sleep(1)
+    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[3]/div[1]/div/div').click()
+    print("Post has been submitted.")
+
 
 def FristLogin_getCookie():
     driver = webdriver.Chrome()
@@ -75,10 +104,6 @@ def FristLogin_getCookie():
     
     
 
-
-
-
-
 if not os.path.exists("cookies.json"):
     FristLogin_getCookie()
 else:
@@ -102,22 +127,9 @@ else:
 
     time.sleep(1)
     print(f"前往社團: {url}")
-    driver.get(url)
-    driver.refresh()
-    WebDriverWait(driver, 50000).until(
-        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span'))
-    )
-    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/span').click()
-    WebDriverWait(driver, 50000).until(
-        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p'))
-    )
-    post = driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[1]/div/div/div[1]/p')
-    post.send_keys('自動PO文測試') # 輸入測試PO文
-    time.sleep(1)
-    driver.find_element('xpath','/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[2]/div/div/div/div/div[1]/form/div/div[1]/div/div/div/div[3]/div[3]/div[1]/div/div').click()
+    PostToGroup(url, "測試PO文\n測試圖片PO文。\n請勿回覆，謝謝！")
     
     input("Cookies have been loaded. Press Enter to continue...")
 
-    
 
 
